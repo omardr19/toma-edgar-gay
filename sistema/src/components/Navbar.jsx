@@ -8,7 +8,7 @@ const Navbar = () => {
     navigate('/');
   };
 
-  if (location.pathname === '/') return null;
+if (location.pathname === '/' || location.pathname === '/registro') return null;
 
   return (
     <nav className="navbar">

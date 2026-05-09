@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [correo, setCorreo] = useState('');
@@ -8,7 +8,15 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate('/dashboard');
+    
+    // Recuperar datos de localStorage
+    const usuarioGuardado = JSON.parse(localStorage.getItem('usuario_registrado'));
+
+    if (usuarioGuardado && usuarioGuardado.correo === correo && usuarioGuardado.contrasena === contrasena) {
+      navigate('/dashboard');
+    } else {
+      alert('Credenciales incorrectas o usuario no registrado.');
+    }
   };
 
   return (
@@ -37,6 +45,9 @@ const Login = () => {
           INICIAR SESIÓN
         </button>
       </form>
+      <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.9rem' }}>
+        ¿No tienes cuenta? <Link to="/registro" style={{ color: '#00f3ff', textDecoration: 'none' }}>Regístrate aquí</Link>
+      </p>
     </div>
   );
 };
